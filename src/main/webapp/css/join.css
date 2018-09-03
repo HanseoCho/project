@@ -1,0 +1,58 @@
+.join{
+    margin: 0 30vw;
+    width: 40%;
+    position: relative;
+    top: 100px;
+}
+
+.join input{
+    width: 170px;
+    height: 20px;    
+}
+.join ._tb{
+    padding: 20px 0;
+}
+
+.joinRight{
+    position: relative;
+}
+
+.regSubmit{
+    background: black;
+    color: white;
+    margin-left: 200px;    
+}
+.regCancel{
+    position: relative;
+    left: 20px;
+}
+
+.joinInfo{
+    font-size: 0.8em;
+    color: #7b7b7b;
+}
+
+.joinId{
+	height: 50px;
+}
+.joinPw{
+	height: 50px;
+}
+.joinPw2{
+	height: 50px;
+}
+.joinName{
+	height: 50px;
+}
+.joinAdd{
+	height: 50px;
+}
+.joinTel{
+	height: 50px;
+}
+.joinEmail{
+	height: 50px;
+}
+.joinBirthDay{
+	height: 50px;
+}

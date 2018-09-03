@@ -22,3 +22,10 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 /target/
+/3.sql
+/db.sql
+/dbInsert포함(집).sql
+/dbInsert포함(학원).sql
+/dbInsert포함.sql
+/db구성포함(학원)2.sql
+/테이블.txt

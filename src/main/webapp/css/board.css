@@ -1,0 +1,51 @@
+#boardSidebar li{
+    margin: 5px 0;
+}
+
+.boardBody{
+    margin: 0 15vw;
+    width: 70%;
+    position: absolute;
+    top: 20vh;
+}
+
+.border{
+    border-top: 1px solid #c6c6c6; 
+}
+
+.borderRow{
+    border-bottom: 1px solid #c6c6c6; 
+    font-size: 0.7em;
+    padding: 10px 0;
+}
+.borderTc{
+    text-align: center;
+}
+.borderRow .rowNoH{
+    width: 5%;
+}
+
+.borderRow .rowSubjectH {
+    width: 85%;    
+}
+.borderRow .rowNameH{
+    width: 10%;    
+}
+.borderRow .rowDateH{
+    width: 10%;    
+}
+
+
+.borderRow .rowNo{
+    width: 5%;
+}
+
+.borderRow .rowSubject {
+    width: 85%;   
+}
+.borderRow .rowName{
+    width: 10%;    
+}
+.borderRow .rowDate{
+    width: 10%;    
+}

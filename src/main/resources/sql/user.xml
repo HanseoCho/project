@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="user">
+	<select id="allList" resultType="HashMap">
+		select no, id, name, address1,address2,address3,phone,email,joinDate,kickYn from user where id != 'admin' and delYn = 'N';
+	</select>
+	<update id="kickUser" parameterType="com.java.project.vo.UserVO">
+		update user set kickYn = 'Y' where no = #{no};
+	</update>
+	<update id="rollUser" parameterType="com.java.project.vo.UserVO">
+		update user set kickYn = 'N' where no = #{no};
+	</update>
+	<select id="selectId" parameterType="com.java.project.vo.UserVO" resultType="com.java.project.vo.UserVO">
+		select * from user where id = #{id} limit 1;
+	</select>
+	<select id="findsId" parameterType="com.java.project.vo.UserVO" resultType="com.java.project.vo.UserVO">
+		select id from user where `email` = #{email} and delYn='N' limit 1;
+	</select>
+	<select id="findsPw" parameterType="com.java.project.vo.UserVO" resultType="com.java.project.vo.UserVO">
+		select * from user where email = #{email} and id = #{id} and delYn = 'N' limit 1;
+	</select>
+	<update id="changePw"  parameterType="com.java.project.vo.UserVO">
+		update user set pw = #{pw} where id=#{id} and email = #{email1} and delYn = 'N';
+	</update>		
+	<insert id="insert" parameterType="com.java.project.vo.UserVO">
+		insert into user (id,pw,name,address1,address2,address3,phone,email,birthDay,authCode) values (#{id},#{pw},#{name},#{address1},#{address2},#{address3},#{phone},#{email},#{birthDay},#{key});
+	</insert>
+	<update id="update" parameterType="com.java.project.vo.UserVO">
+		update user set `pw` = #{pw}, `address1` = #{address1},`address2` = #{address2},`address3` = #{address3}, `phone` = #{phone}  where id = #{id};
+	</update>
+	<update id="delete" parameterType="com.java.project.vo.UserVO">
+		update user set `delYn` = 'Y'  where id = #{id};
+	</update>
+	<select id="login"  parameterType="com.java.project.vo.UserVO" resultType="com.java.project.vo.UserVO">
+		select * from user where id = #{id} and pw = #{pw} limit 1;
+	</select>
+	<insert id="createMail" parameterType="com.java.project.vo.UserVO">
+		insert into tempkey (userNo,email,joinKey) values(#{no},${mail},${key});
+	</insert>
+	<update id="yesKey" parameterType="com.java.project.vo.UserVO">
+		update user set status='Y' where id = #{id} and authCode = #{key} and status='N';
+	</update>
+</mapper>

@@ -1,0 +1,116 @@
+.inputText{
+    width: 20vw;
+    margin: 5px 0;
+}
+.loginSubmit{
+    width: 20vw;
+    height: 35px;
+    background-color: black;
+    text-align: center;
+    border: 0.5px solid #C8c8c8;
+    margin-bottom: 5px;   
+}
+
+.loginSubmit:hover{
+    cursor: pointer;
+    -webkit-animation-name: changeColor; /* Safari 4.0 - 8.0 */
+    -webkit-animation-duration: 1s; /* Safari 4.0 - 8.0 */
+    -webkit-animation-fill-mode: both;
+    animation-name: changeColor;
+    animation-duration: 1s;     
+    animation-fill-mode: both;
+}
+
+.loginSubmit:hover > span{
+    -webkit-animation-name: textColor; /* Safari 4.0 - 8.0 */
+    -webkit-animation-duration: 1s; /* Safari 4.0 - 8.0 */
+    animation-name: textColor;
+    animation-duration: 1s;     
+    animation-fill-mode: both;
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes changeColor {
+    from {background-color: black;}
+    to {background-color: #cbcbcb;}
+}
+
+/* Standard syntax */
+@keyframes changeColor {
+    from {background-color: black;}
+    to {background-color: #cbcbcb;}
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes textColor {
+    from {color: white;}
+    to {color: black;}
+}
+
+/* Standard syntax */
+@keyframes textColor {
+    from {color: white;}
+    to {color: black;}
+}
+
+.loginSubmit span{
+    color: white;
+    font-size: 0.8em;
+    position: relative;
+    top: 10px;
+}
+.loginReg{
+    width:20vw;
+    height: 35px;
+    background-color: white;
+    text-align: center;    
+    border: 0.1px solid #C8c8c8;
+}
+.loginReg span{
+    color: black;
+    font-size: 0.8em;
+    position: relative;
+    top: 10px;    
+}
+.loginReg:hover{
+    cursor: pointer;
+    -webkit-animation-name: changeColor2; /* Safari 4.0 - 8.0 */
+    -webkit-animation-duration: 2s; /* Safari 4.0 - 8.0 */
+    -webkit-animation-fill-mode: both;
+    animation-name: changeColor2;
+    animation-duration: 1s;   
+    animation-fill-mode: both;
+}
+.loginReg:hover > span{
+    -webkit-animation-name: textColor2; /* Safari 4.0 - 8.0 */
+    -webkit-animation-duration: 1s; /* Safari 4.0 - 8.0 */
+    animation-name: textColor2;
+    animation-duration: 1s;     
+    animation-fill-mode: both;
+}
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes changeColor2 {
+    from {background-color: white;}
+    to {background-color: #525252;}
+}
+
+/* Standard syntax */
+@keyframes changeColor2 {
+    from {background-color: white;}
+    to {background-color: #525252;}
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes textColor2 {
+    from {color: black;}
+    to {color: white;}
+}
+
+/* Standard syntax */
+@keyframes textColor2 {
+    from {color: black;}
+    to {color: white;}
+}
+.minibar > div span:hover{
+	cursor: pointer;
+}

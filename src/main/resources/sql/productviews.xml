@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="productviews">
+<select id="allList"  resultType="HashMap">
+	select date,productNo, category,division,section,subject,color,price from productviews as pv left join product as p on p.`no` = pv.productNo;
+</select>
+<select id="selectOne" parameterType="HashMap" resultType="HashMap">
+	select * from board where boardNo = #{boardNo}
+</select>
+<insert id="insert" parameterType="HashMap">
+	insert into `productviews` (`productNo`,`userType`,`userNo`) values (#{productNo},#{userType},#{userNo});
+</insert>
+<select id="popularProuctList" parameterType="HashMap"  resultType="HashMap">
+	select pv.`productNo` as no,count(*) as count,p.category,p.division,p.section,p.subject,p.color,p.size,p.price from `productviews` as pv left join product as p on pv.productNo = p.`no` group by pv.productNo order by count desc limit #{startPage}, #{endPage};	
+</select>
+</mapper>

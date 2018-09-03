@@ -1,0 +1,177 @@
+
+.contetns{
+    margin: 0 20vw;
+    width: 60%;
+    position: relative;
+    top: 100px;
+}
+.choseImages{
+    width: 10vw;
+}
+
+.product_detail_{
+    height: auto;
+}
+
+.product_detail_ li{
+ margin: 0 0 10px 0;   
+}
+
+.choseImage{
+    display: block;
+    width: auto;    
+    height: 240px;
+}
+.choseImage:hover{
+    cursor: pointer;
+}
+
+.keyImage{
+    margin-left: 20px;
+    height: 100vh;
+}
+.infoarea{
+    position: absolute;
+    right: 5vw;
+    position: fixed;
+    top: 20vh;
+    z-index: 99;    
+}
+
+.infoarea div{
+    margin: 0 0 20px 0;   
+}
+
+.infoareaDetail{
+    width:15vw;
+    word-break:break-all;
+}
+
+.colorCss, .sizeCss{
+    border: 1px solid #c8c8c8;
+    color: #454545;
+    padding: 5px 3px;
+    text-decoration: none;
+    margin: 0 5px;
+}
+.infoarea .btnCss{
+    border: 1px #4e4d4d solid;
+    text-align: center;
+    padding: 5px 0;
+}
+
+.reviewText{
+    height: 100px;
+    width: 90%;
+}
+
+.reviewText::placeholder{
+    font-size: 0.7em;
+}
+.reviewText{
+    font-size: 0.7em;
+}
+.reviewSubmit{
+    padding: 5px 10px;
+    border: 1px solid #363636;
+    background-color: #363636;
+    color: white;
+    position: absolute;
+    right: 10%;
+}
+
+.star{
+    font-size: 1.5em;
+    position: relative;
+    bottom: 7px;
+}
+.star:hover{
+    cursor: pointer;
+}
+.reviewPoint{
+    position: relative;
+    top: 25px;
+    border: 1px solid #757575;
+    height: 150px;
+    width: 90%;
+
+}
+
+.starAvgNum{
+    position: relative;
+    top: 30px;
+    left: 2vw;
+    padding: 10px 20px;
+    background-color: #151515;
+    color: white;
+    font-size: 3em;
+}
+.starAvgText{
+    position: relative;
+    top: 35px;
+    left: 2.4vw;
+}
+.reviewOfStar{
+    position: relative;
+    top: 15px;
+}
+
+.reviewList{
+    position: relative;
+    top: 50px;
+}
+
+.reviewLine::before{
+    content: "";
+    display: block;
+    border: 1px solid #c8c8c8;
+    width: 90%;
+    height: 1px;
+    top: 0px;
+    position: relative;
+}
+.reviewLine::after{
+    content: "";
+    display: block;
+    border: 1px solid #c8c8c8;
+    width: 90%;
+    height: 1px;
+    top: 00px;
+    position: relative;    
+}
+
+.reviewViewLeft > span{
+    display: inline-block;
+}
+
+.infoarea_f3 ._t{
+    color: #888888;
+}
+
+.infoarea_f3 ._b{
+    font-weight: 700;
+}
+.infoarea_f3 ._hr::after{
+    content: "";
+    display: block;
+    border: 1px solid #c8c8c8;
+    width: 68%;
+    height: 1px;
+    top: 0px;
+    position: relative; 
+}
+
+.reviewView{
+    padding: 30px 0;
+}
+
+.reviewViewLeft_t{
+    
+}
+
+login{
+    text-align: center;
+}
+login div{
+    display: block;
+}

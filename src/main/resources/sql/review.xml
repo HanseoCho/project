@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="review">
+<select id="selectList" parameterType="com.java.project.vo.ReviewVO" resultType="HashMap">
+	select r.no,u.no as userNo,r.`contents`,r.rating,r.`date`,u.name from review as r join `user` as u on r.userNo = u.`no` where r.productNo = #{productNo} and r.delYn = 'N' order by r.no desc;
+</select>
+<insert id="insert" parameterType="com.java.project.vo.ReviewVO">
+	insert into `review` (`productNo`,`userNo`,`contents`,`rating`) values(#{productNo},#{userNo},#{contents},#{rating})
+</insert>
+<update id="delete" parameterType="com.java.project.vo.ReviewVO">
+	update review 
+	set delYn = 'Y'
+	where no = #{no};
+</update>
+</mapper>

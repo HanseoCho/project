@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="product">
+	<select id="allget" parameterType="com.java.project.vo.ProductVO" resultType="HashMap">
+		select * from `product` where delYn = 'N';
+	</select>
+	<insert id="insert" parameterType="com.java.project.vo.ProductVO" >
+		insert into product (category, division, section, subject, price,color,details,size) 
+		values (#{category},#{division},#{section},#{subject},#{price},#{color},#{details},#{size});
+	</insert>
+	<update id="deletePro" parameterType="com.java.project.vo.ProductVO" >
+		update `product` set delYn = 'Y' where `type` = #{type} and `value` = #{value};
+	</update>
+	<update id="deleteFile" parameterType="com.java.project.vo.ProductVO" >
+		update `file` set delYn = 'Y' where `productNo` = #{productNo};
+	</update>
+	<select id="selectNo" parameterType="com.java.project.vo.ProductVO" resultType="int">
+		select `no` from `product` where `subject` = #{subject} and `price` = #{price} limit 1; 
+	</select>
+	<insert id="fileInsert" parameterType="Hashmap" >
+		insert into file (productNo,productType,fileName,fileUrl) values (#{productNo},#{productType},#{fileName},#{fileUrl});
+	</insert>
+	<select id="allListCount" resultType="HashMap">
+		select fileNo,count(*) as count from `file` where productType = 'viewImage' group by productNo order by fileNo desc;
+	</select>
+	<select id="countGet" parameterType="HashMap" resultType="int">
+		select count(*) from `product`;
+	</select>
+	<select id="listGet" parameterType="HashMap" resultType="HashMap">
+		select * from `product` order by joinDate desc limit #{startPage}, #{endPage};
+	</select>
+	<select id="fileGet" parameterType="HashMap" resultType="HashMap">
+		select * from `file` order by regDate desc;
+	</select>	
+	<select id="detailNo" parameterType="HashMap" resultType="HashMap">
+		select * from `product` where no = #{no};
+	</select>
+	<select id="ImageNo" parameterType="HashMap" resultType="HashMap">
+		select * from `file` where productNo = #{no};
+	</select>	
+	<select id="divisionCountGet" parameterType="HashMap" resultType="int">
+		select count(*) from `product` where division = #{division};
+	</select>
+	<select id="divisionListGet" parameterType="HashMap" resultType="HashMap">
+		select * from `product` where division = #{division} order by joinDate desc limit #{startPage}, #{endPage};
+	</select>
+</mapper>
