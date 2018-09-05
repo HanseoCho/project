@@ -72,8 +72,9 @@ public class BoardService implements BoardServiceInterface {
 		Map<String, Object> param = MapUtil.makeParam("selectList", "board.selectTypeList");
 		board.changeTypeString();
 		param.put("startPage", (criteria.getPage()-1)*10);
-		param.put("endPage", criteria.getPage()*10);
+		param.put("endPage", 10);
 		param.put("type", board.getType());
+		System.out.println(param);
 		try {
 			list = (List<HashMap<String, Object>>) di.call(param);
 			SimpleDateFormat d = new SimpleDateFormat("yyyy.MM.dd");
@@ -108,7 +109,7 @@ public class BoardService implements BoardServiceInterface {
 		}
 		board.changeTypeString();
 		param.put("startPage", (criteria.getPage()-1)*10);
-		param.put("endPage", criteria.getPage()*10);
+		param.put("endPage", 10);
 		param.put("type", board.getType());
 		param.put("head", board.getHead());
 		param.put("body", board.getBody());

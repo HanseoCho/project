@@ -187,7 +187,7 @@ public class ProductService implements ProductSericeInterface {
 			param = MapUtil.makeParam("selectList", "product.divisionListGet");
 		}
 		param.put("startPage", (criteria.getPage()-1)*30);
-		param.put("endPage", criteria.getPage()*30);
+		param.put("endPage", 30);
 		param.put("division", division);
 		System.out.println(param);
 		try {
