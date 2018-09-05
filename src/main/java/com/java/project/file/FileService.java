@@ -33,14 +33,14 @@ public class FileService implements FileServiceInterface {
 		List<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 		for(int i = 0; i < product.getViewImage().length; i++) {
 			try {
-				list.add(saveImg(product.getViewImage()[i],product,"viewImage"));
+				list.add(saveImg(product.getViewImage()[i],product,"viewImage",req));
 			} catch (Exception e) {
 				e.printStackTrace();
 				return new ResponseEntity<String> ("viewImage를 처리중 문제가 발생하였습니다.",HttpStatus.ACCEPTED);
 			}
 		}
 		try {
-			map.put("infoImage",saveImg(product.getInfoImage(),product,"infoImage"));
+			map.put("infoImage",saveImg(product.getInfoImage(),product,"infoImage",req));
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -50,7 +50,7 @@ public class FileService implements FileServiceInterface {
 		return new ResponseEntity<String> ("상품이 등록되었습니다",HttpStatus.OK);
 	}
 	
-	public HashMap<String, Object> saveImg(MultipartFile file,ProductVO prodcut,String str){
+	public HashMap<String, Object> saveImg(MultipartFile file,ProductVO prodcut,String str,HttpServletRequest req){
 		Map<String, Object> param = MapUtil.makeParam("selectOne", "product.selectNo"); 
 		String inDate   = new java.text.SimpleDateFormat("yyyyMMdd").format(new java.util.Date());
 		String inTime   = new java.text.SimpleDateFormat("HHmmss").format(new java.util.Date());
@@ -60,9 +60,9 @@ public class FileService implements FileServiceInterface {
 		String fileNm = file.getOriginalFilename();
 			try {
 				byte[] bytes = file.getBytes();
-				String path = "D:/GDJ10/IDE/eclipse/workspace/project/src/main/webapp/img/" + (inDate+inTime) + "/";
+				//String path = "D:/GDJ10/IDE/eclipse/workspace/project/src/main/webapp/img/" + (inDate+inTime) + "/";
 				//String path = "D:/workspace/src/main/webapp/img/" + (inDate+inTime) + "/";
-				//String path = req.getSession().getServletContext().getRealPath("/") + "img/product/" + (inDate+inTime) + "/";
+				String path = req.getSession().getServletContext().getRealPath("/") + "img/" + (inDate+inTime) + "/";
 				String dns = "http://gudi.iptime.org:11100/";
 				File dirF = new File(path);		
 				if(!dirF.exists()) {
@@ -87,15 +87,15 @@ public class FileService implements FileServiceInterface {
 				return fileMap;
 			}
 	}
-	public String saveImg(MultipartFile file){
+	public String saveImg(MultipartFile file,HttpServletRequest req){
 		String inDate   = new java.text.SimpleDateFormat("yyyyMMdd").format(new java.util.Date());
 		String inTime   = new java.text.SimpleDateFormat("HHmmss").format(new java.util.Date());
 		String fileNm = file.getOriginalFilename();
 			try {
 				byte[] bytes = file.getBytes();
-				String path = "D:/GDJ10/IDE/eclipse/workspace/project/src/main/webapp/img/" + (inDate+inTime) + "/";
+				//String path = "D:/GDJ10/IDE/eclipse/workspace/project/src/main/webapp/img/" + (inDate+inTime) + "/";
 				//String path = "D:/workspace/src/main/webapp/img/" + (inDate+inTime) + "/";
-				//String path = req.getSession().getServletContext().getRealPath("/") + "img/product/" + (inDate+inTime) + "/";
+				String path = req.getSession().getServletContext().getRealPath("/") + "img/" + (inDate+inTime) + "/";
 				String dns = "http://gudi.iptime.org:11100/";
 				File dirF = new File(path);		
 				if(!dirF.exists()) {
@@ -132,7 +132,7 @@ public class FileService implements FileServiceInterface {
 		Map<String, Object> param = MapUtil.makeParam("selectList", "index.setEventBox");
 		//파일저장이 이루어져야함
 		try {
-			param.put("url",saveImg(file));
+			param.put("url",saveImg(file,req));
 			param.put("location", req.getParameter("location"));
 			param.put("no", req.getParameter("no"));
 			di.call(param);

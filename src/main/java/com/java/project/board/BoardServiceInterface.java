@@ -20,4 +20,5 @@ public interface BoardServiceInterface {
 	ResponseEntity<HashMap<String, Object>> getComment(CommentVO comment);
 	ResponseEntity<String> insertComment(CommentVO comment);
 	ResponseEntity<HashMap<String, Object>> getCommentCount();
+	ResponseEntity<String> delComment(CommentVO comment);
 }

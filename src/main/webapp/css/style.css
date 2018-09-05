@@ -4,7 +4,7 @@
 }
 body{
 }
-.sbody{
+.sbody, .sbody_{
     margin: 0 15vw;
     width: 70%;
     position: relative;

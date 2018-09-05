@@ -92,6 +92,11 @@ public class BoardController {
 		return bsi.getComment(comment);
 	}
 	@ResponseBody
+	@RequestMapping(value="/comment/{no}",method=RequestMethod.DELETE)	
+	public ResponseEntity<String> delComment(CommentVO comment){
+		return bsi.delComment(comment);
+	}	
+	@ResponseBody
 	@RequestMapping(value="/comment",method=RequestMethod.POST)	
 	public ResponseEntity<String> insertComment(CommentVO comment){
 		return bsi.insertComment(comment);

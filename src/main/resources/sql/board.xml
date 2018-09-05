@@ -28,7 +28,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	select count(*) from board where `type` = #{type} and subject like CONCAT('%',#{body},'%') or content like CONCAT('%',#{body},'%');
 </select>
 <select id="searchList2" parameterType="HashMap" resultType="HashMap">
-	select ROW_NUMBER() OVER(order by date) as num,b.`no` as boardNo,  userNo, subject, content, date, secret,name  from board as b left join user as u on b.userNo = u.`no` where b.delYn = 'N' and type = #{type} and subject like CONCAT('%',#{body},'%') or content like CONCAT('%',#{body},'%') order by date desc limit #{startPage}, #{endPage};
+	select ROW_NUMBER() OVER(order by date) as num,b.`no` as boardNo,  userNo, subject, content, date, secret,name from board as b left join user as u on b.userNo = u.`no` where b.delYn = 'N' and type = #{type} and subject like CONCAT('%',#{body},'%') and content like CONCAT('%',#{body},'%') order by date desc limit #{startPage}, #{endPage};
 </select>
 
 <select id="detailSelect" parameterType="com.java.project.vo.BoardVO" resultType="HashMap">
@@ -44,7 +44,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	insert into `comment` (userNo,boardNo,content) values(#{userNo},#{boardNo},#{content});
 </insert>
 <select id="commentSelect" parameterType="com.java.project.vo.CommentVO" resultType="HashMap">
-	select userNo, content,date,id,name from `comment` as c left join `user` as u on c.userNo = u.`no` where c.boardNo = #{boardNo} and c.delYn = 'N' order by c.date asc;
+	select c.no,userNo, content,date,id,name from `comment` as c left join `user` as u on c.userNo = u.`no` where c.boardNo = #{boardNo} and c.delYn = 'N' order by c.date asc;
+</select>
+<select id="delCom" parameterType="com.java.project.vo.CommentVO" resultType="HashMap">
+	update comment set delYn = 'Y' where no = #{no};
 </select>
 <select id="commentCount" resultType="HashMap">
 	select boardNo, count(*) as count from `comment` where delYn= 'N' group by boardNo;

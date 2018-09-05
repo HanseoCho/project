@@ -107,8 +107,9 @@ var viewList = [
           containerId: 'chart_4'
         }}       
 ];
+var loading
 $(function(){
-	var loading = $('<div id="loading" class="loading"></div><img id="loading_img" alt="loading" src="/img/viewLoading.gif" /></div>').appendTo(document.body).hide();
+	loading = $('<div id="loading" class="loading"></div><img id="loading_img" alt="loading" src="/img/viewLoading.gif" /></div>').appendTo(document.body).hide();
     $(".leftBox").on("click",function(){
         $(".leftBox").removeClass("analChose");
         $(".rightBox").removeClass("analChose_");
@@ -236,7 +237,7 @@ function getData(num){
                 <li class="headerli">ONLINE SHOP</li>
                 <li class="headerli">ABOUT</li>
                 <li class="headerli">Board</li>
-                <li class="headerli">CHAT</li>
+                <!-- <li class="headerli">CHAT</li> -->
                 <c:if test="${sessionScope.sessionScope.id eq 'admin'}">
                 	<li class="headerli">ADMIN</li>
                 </c:if>                

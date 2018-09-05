@@ -97,7 +97,7 @@ public class Criteria {
 	}
 	public List<String> parserdivisionJs(String division) {
 		List<String> list = new ArrayList<String>();
-
+		
 		if (startPage > 1) {
 		    list.add("<a href=\"?division="+division+"page=1\">처음</a>");
 		}
@@ -130,7 +130,7 @@ public class Criteria {
 	}	
 	public List<String> parserTypeJs(String type) {
 		List<String> list = new ArrayList<String>();
-
+		type = type.equals("Q&A")?"Q_A":type;
 		if (startPage > 1) {
 		    list.add("<a href=\"?type="+type+"page=1\">처음</a>");
 		}

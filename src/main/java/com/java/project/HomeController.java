@@ -119,4 +119,8 @@ public class HomeController {
 		}
 		return mv;
 	}	
+	@RequestMapping("/chat")
+	public String moveChat() {
+		return "/chat/chat";
+	}
 }

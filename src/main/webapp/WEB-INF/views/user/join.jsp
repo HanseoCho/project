@@ -31,7 +31,7 @@
                 <li class="headerli">ONLINE SHOP</li>
                 <li class="headerli">ABOUT</li>
                 <li class="headerli">Board</li>
-                <li class="headerli">CHAT</li>
+                <!-- <li class="headerli">CHAT</li> -->
                 <c:if test="${sessionScope.sessionScope.id eq 'admin'}">
                 	<li class="headerli">ADMIN</li>
                 </c:if>                

@@ -195,7 +195,13 @@
 		    <artifactId>spring-data-hadoop</artifactId>
 		    <version>2.5.0.RELEASE</version>
 		</dependency>
-		  
+		
+	  <!-- websocket -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-websocket</artifactId>
+		    <version>4.1.6.RELEASE</version>
+		</dependency>
 	</dependencies>
     <build>
         <plugins>

@@ -82,7 +82,6 @@ public class AirMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
 				}
 			}
 		}
-		System.out.println(bean.toString());
 		//context.write(new Text(bean.subject),new IntWritable(1));
 	}
 }

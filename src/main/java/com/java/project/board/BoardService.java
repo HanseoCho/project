@@ -82,6 +82,7 @@ public class BoardService implements BoardServiceInterface {
 				parser.put("date", d.format(list.get(i).get("date")));
 				list.set(i, parser);
 			}			
+			System.out.println(list);
 			result.put("result", list);
 			param = MapUtil.makeParam("selectOne", "board.selectTypeCount");
 			param.put("type", board.getType());
@@ -176,6 +177,19 @@ public class BoardService implements BoardServiceInterface {
 			return new ResponseEntity<HashMap<String,Object>> (HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	@Override
+	public ResponseEntity<String> delComment(CommentVO comment) {
+		try {
+			HashMap<String, Object> result = new HashMap<String,Object>();
+			Map<String, Object> param = MapUtil.makeParam("update", "board.delCom");
+			di.call(param, comment);
+			return new ResponseEntity<String> ("댓글삭제 성공",HttpStatus.OK);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<String> ("댓글삭제 실패",HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}	
 	@Override
 	public ResponseEntity<String> insertComment(CommentVO comment) {
 		try {

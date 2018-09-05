@@ -14,105 +14,43 @@
 </head>
 <body>
     <header class="header fl fl_row">
-        <div class="fl_gr2"><p id="mainBtn" class="fontBlock leftMt">HanS:hop</p></div>        
+    	
+        <div class="fl_gr2"><p id="mainBtn" class="fontBlock leftMt">HanS:hop</p></div>
         <div class="fl_gr5">
             <ul class="fontBlock centerMt">
                 <li class="headerli">ONLINE SHOP</li>
                 <li class="headerli">ABOUT</li>
                 <li class="headerli">Board</li>
-                <li class="headerli">CHAT</li>
+                <!-- <li class="headerli" id="test">CHAT</li> -->
                 <c:if test="${sessionScope.sessionScope.id eq 'admin'}">
                 	<li class="headerli">ADMIN</li>
-                </c:if>                
+                </c:if>                   
             </ul>
         </div>        
         <div class="fl_gr2 headerRightBar fontBlock rightMt" >
-        	<c:choose>
-	        	<c:when test="${empty sessionScope}">
-		            <a>LOGIN</a>
-		            <a>JOIN</a>
-	            </c:when>
-	            <c:otherwise>
-	            	<a>LOGOUT</a>
-		            <a>MYPAGE</a>	            	
-	            </c:otherwise>
-           	</c:choose>           
-	            <a>장바구니</a>
-        </div>       
+            <a>LOGIN</a>
+            <a>JOIN</a>
+            <a>MYPAGE</a>
+            <a>장바구니</a>
+        </div>        
     </header>
-    <div style="height: 20000px;" class="wrap"> 
-        <div id="boardSidebar" class="fl fl_col">
+    <div class="wrap" style=" padding-bottom: 20vh;"> 
+        <div id="sidebar" class="fl fl_col">
             <ul>
-                <li>NOTICE</li>
-                <li>Q&A</li>
-                <li>REVIEW</li>
+                <li>인기상품</li>
             </ul>
         </div>  
-        <div class="boardBody">
-            <div class="fl fl_col border">
-                <div class="fl fl_row borderRow borderTc">
-                    <div class="rowNoH">NO</div>
-                    <div class="rowSubjectH">SUBJECT</div>
-                    <div class="rowNameH">NAME</div>
-                    <div class="rowDateH">DATE</div>
-                </div>
-                <div class="fl fl_row borderRow">
-                    <div class="rowNoH borderTc">1</div>
-                    <div class="rowSubjectH">개인정보보호방침 변경에 따른 공지사항</div>
-                    <div class="rowNameH borderTc">NAME</div>
-                    <div class="rowDateH borderTc">2018.08.16</div>
-                </div>  
-                <div class="fl fl_row borderRow">
-                    <div class="rowNoH borderTc">1</div>
-                    <div class="rowSubjectH">개인정보보호방침 변경에 따른 공지사항</div>
-                    <div class="rowNameH borderTc">NAME</div>
-                    <div class="rowDateH borderTc">2018.08.16</div>
-                </div>  
-                <div class="fl fl_row borderRow">
-                    <div class="rowNoH borderTc">1</div>
-                    <div class="rowSubjectH">개인정보보호방침 변경에 따른 공지사항</div>
-                    <div class="rowNameH borderTc">NAME</div>
-                    <div class="rowDateH borderTc">2018.08.16</div>
-                </div>  
-                <div class="fl fl_row borderRow">
-                    <div class="rowNoH borderTc">1</div>
-                    <div class="rowSubjectH">개인정보보호방침 변경에 따른 공지사항</div>
-                    <div class="rowNameH borderTc">NAME</div>
-                    <div class="rowDateH borderTc">2018.08.16</div>
-                </div>  
-                <div class="fl fl_row borderRow">
-                    <div class="rowNoH borderTc">1</div>
-                    <div class="rowSubjectH">개인정보보호방침 변경에 따른 공지사항</div>
-                    <div class="rowNameH borderTc">NAME</div>
-                    <div class="rowDateH borderTc">2018.08.16</div>
-                </div>                  
-            </div>        
-            <div>페이징</div>
-            <div style="font-size: 0.8em;">
-                <span style="font-size: 0.01em; position: relative;bottom: 2px;">▷</span>검색어 
-                <select>
-                    <option>일주일</option>
-                    <option>한달</option>
-                    <option>세달</option>
-                    <option>전체</option>
-                </select>
-                <select>
-                    <option>제목</option>
-                    <option>내용</option>
-                    <option>글쓴이</option>
-                </select> 
-                <input type="text">
-                <input type="button" value="찾기">
-            </div>
+        <div class="sbody" style="margin-bottom: 100px;" >
+        	<div style="text-align: center;">
+        		<H3 style="display: inline-block;">웹쇼핑몰</H3><br>
+        		<h5 style="display: inline-block;">UI참고 및 자료참고</h5><br> 
+        		무신사(https://store.musinsa.com/app/)<br>
+     			메이썸(http://maysome.com/)<br>
+        					 
+        	</div>  
         </div>
     </div>
-    <div style="display:none; position: fixed;top: 85%; left: 90%;" class="updownBar">
-        <div class="fl fl_col">
-           <div><img id="imgUp" src="/img/up.png" style="width: 30px;"></div>            
-           <div><img id="imgDown" src="/img/down.png" style="width: 30px;"></div>            
-        </div>
-    </div>
-    <footer style="height: 250px;" class="sbody">
+   <footer style="height: 250px;" class="sbody_">
         <div style="text-align: center; height: 80px;">
             <span class="footBar">HOME</span><span class="footBar">SHOP</span><span class="footBar">ABOUT</span><span class="footBar">BOARD</span>
         </div>
@@ -128,6 +66,6 @@
             <a href="https://twitter.com/"><img src="/img/tw.png" style="width: 50px;"></a>
             <a href="https://www.kakaocorp.com/"><img src="/img/kakao.png" style="width: 50px;"></a>
         </div>
-    </footer>
+    </footer>  
 </body>
 </html>

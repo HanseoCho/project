@@ -13,6 +13,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	insert into `productviews` (`productNo`,`userType`,`userNo`) values (#{productNo},#{userType},#{userNo});
 </insert>
 <select id="popularProuctList" parameterType="HashMap"  resultType="HashMap">
-	select pv.`productNo` as no,count(*) as count,p.category,p.division,p.section,p.subject,p.color,p.size,p.price from `productviews` as pv left join product as p on pv.productNo = p.`no` group by pv.productNo order by count desc limit #{startPage}, #{endPage};	
+	select pv.`productNo` as no,count(*) as count,p.category,p.division,p.section,p.subject,p.color,p.size,p.price from `productviews` as pv left join product as p on pv.productNo = p.`no` where p.delYn= 'N' group by pv.productNo order by count desc limit #{startPage}, #{endPage};	
 </select>
 </mapper>

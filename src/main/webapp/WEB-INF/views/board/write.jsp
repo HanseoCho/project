@@ -164,7 +164,7 @@
                 <li class="headerli">ONLINE SHOP</li>
                 <li class="headerli">ABOUT</li>
                 <li class="headerli">Board</li>
-                <li class="headerli">CHAT</li>
+				<!-- <li class="headerli" id="test">CHAT</li> -->
                 <c:if test="${sessionScope.sessionScope.id eq 'admin'}">
                 	<li class="headerli">ADMIN</li>
                 </c:if>                
@@ -184,12 +184,11 @@
 	            <a>장바구니</a>
         </div>       
     </header>
-    <div style="height:100vh;" class="wrap"> 
+    <div style="padding-bottom: 90vh;" class="wrap"> 
         <div id="boardSidebar" class="fl fl_col">
             <ul>
                 <li>NOTICE</li>
                 <li>Q&A</li>
-                <li>REVIEW</li>
             </ul>
         </div>  
         <div class="noticeBody">

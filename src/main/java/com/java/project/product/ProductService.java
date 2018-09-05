@@ -151,6 +151,7 @@ public class ProductService implements ProductSericeInterface {
 			//현재 페이지에 따른 총갯수 더해주기 페이징을 위해서
 			param = MapUtil.makeParam("selectList", "product.fileGet");
 			list2 = (List<HashMap<String, Object>>) di.call(param);
+			System.out.println("list2 : "+list2);
 			
 			for(int i=0;i<list.size();i++) {
 				List<HashMap<String, Object>> list3 = new ArrayList<HashMap<String, Object>>();
@@ -165,6 +166,7 @@ public class ProductService implements ProductSericeInterface {
 			param = MapUtil.makeParam("selectOne", "product.countGet");
 			criteria.setCriteria((int)di.call(param), 30);
 			result.put("js",criteria.parserJs());
+			System.out.println(result);
 			return new ResponseEntity<HashMap<String,Object>> (result,HttpStatus.OK);
 		}
 		catch (Exception e) {

@@ -105,7 +105,7 @@ $(function(){
                 <li class="headerli">ONLINE SHOP</li>
                 <li class="headerli">ABOUT</li>
                 <li class="headerli">Board</li>
-                <li class="headerli">CHAT</li>
+                <!-- <li class="headerli" id="test">CHAT</li> -->
                 <c:if test="${sessionScope.sessionScope.id eq 'admin'}">
                 	<li class="headerli">ADMIN</li>
                 </c:if>                
@@ -125,7 +125,7 @@ $(function(){
 	            <a>장바구니</a>
         </div>          
     </header>
-    <div style=";" class="wrap"> 
+    <div style="margin: 0 0 200px 0;" class="wrap"> 
         <div id="sidebar" class="fl fl_col">
             <ul>
             	<li>인기상품</li>
@@ -147,7 +147,7 @@ $(function(){
            <div><img id="imgDown" src="/img/down.png" style="width: 30px;"></div>            
         </div>
     </div>    
-    <footer style="height: 250px;" class="sbody">
+    <footer style="height: 250px;" class="sbody_">
         <div style="text-align: center; height: 80px;">
             <span class="footBar">HOME</span><span class="footBar">SHOP</span><span class="footBar">ABOUT</span><span class="footBar">BOARD</span>
         </div>

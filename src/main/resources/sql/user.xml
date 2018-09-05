@@ -16,10 +16,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from user where id = #{id} limit 1;
 	</select>
 	<select id="findsId" parameterType="com.java.project.vo.UserVO" resultType="com.java.project.vo.UserVO">
-		select id from user where `email` = #{email} and delYn='N' limit 1;
+		select id from user where `email` = #{email} and delYn='N' order by no desc limit 1;
 	</select>
 	<select id="findsPw" parameterType="com.java.project.vo.UserVO" resultType="com.java.project.vo.UserVO">
-		select * from user where email = #{email} and id = #{id} and delYn = 'N' limit 1;
+		select * from user where email = #{email} and id = #{id} and delYn = 'N' order by no desc limit 1;
 	</select>
 	<update id="changePw"  parameterType="com.java.project.vo.UserVO">
 		update user set pw = #{pw} where id=#{id} and email = #{email1} and delYn = 'N';

@@ -15,7 +15,10 @@
 .buyBox div .cancel:hover, .reviewSubmit:hover{
 	cursor: pointer;
 }
-.reviewContainer .reviewLine .cancel:hover {
+.reviewContainer .reviewLine .cancel:hover .proDel:hover {
+	cursor: pointer;
+}
+.proDel{
 	cursor: pointer;
 }
 </style>
@@ -64,6 +67,21 @@
         				$(".infoImage").attr("src",data.image[i].fileUrl);
         			}        
         		}
+        		if(data.userNo == $("input[name=userNo]").val() | $("input[name=userId]").val() == "admin"){
+        			$(".subject").append('<span class="proDel" style="position: absolute; right: 0; padding:5px; border: 1px solid black;">취소</span>')
+        			$(".proDel").on("click",function(){
+        				$.ajax({method:"delete",url:"/product/"+number})
+        				.done(function(data,test,xhr){
+        					if(xhr.status == 200){
+        						alert(data);
+        						history.go(-1);
+        					}
+        					else{
+        						console.log("삭제중 문제발생");
+        					}	
+        				})
+        			})
+        		}
         		
         		
         		// 이미지부분
@@ -76,8 +94,8 @@
                 	//클릭하면 살거
                 	var html;
                 	html ='<div class="buyBox"><span class="infoarea_f2 subject" style="font-weight: 600">'+data.subject+'</span><br>';
-                	html +='<span class="infoarea_f1">▶'+$(this).text()+'</span>';
-                	html +='<div><input type="number" class="infoarea_f1" value="1" style="width: 50px;"><select style="font-size: 0.8em;" class="size"></select><a class="cancel"><span style="width: 20px;height: 20px;background-color: #c8c8c8;color: white; position: relative; left: 10px;">x</span></a><span class="price" style="position: relative;left: 50px;">'+data.price+'원</span></div></div>';
+                	html +='<span class="infoarea_f1 setColor">▶'+$(this).text()+'</span>';
+                	html +='<div><input type="number" class="infoarea_f1 setCount" value="1" style="width: 50px;"><select style="font-size: 0.8em;" class="size setSize"></select><a class="cancel"><span style="width: 20px;height: 20px;background-color: #c8c8c8;color: white; position: relative; left: 10px;">x</span></a><span class="price allPrice" style="position: relative;left: 50px;">'+data.price+'원</span></div></div>';
                 	
                 	$(".buyList").append(html);
 					var sizes = data.size.split(",");
@@ -92,13 +110,11 @@
 					})
 					$(".buyBox input[type=number]").on("change",function(){
 						var index = $(this).parent().parent().index()
-						console.log(index);
+						//console.log(index);
 						//$(".buyList .buyBox").eq(index).children("span.price").text(($(this).val()*data.price)+"원");
-						console.log($(".buyList .buyBox").eq(index).children("span.price"))
+						//console.log($(".buyList .buyBox").eq(index).children("span.price"))
 						$(".buyList .buyBox").eq(index).children("div").children("span.price").text(($(this).val()*data.price)+"원");
 					})
-					
-                	alert(20);
 					return false;                	
                 })
         	}
@@ -111,19 +127,52 @@
         	
         	
         	$("#buyNow").on("click",function(){
-        		alert(1)
+        		var count = 0;
+        		if($(".buyBox").length == 0){
+        			alert('색상을 선택해주세요.');
+        			return false;
+        		}
+        		for(var i=0;i<$(".buyBox").length;i++){
+	        		while(true){
+	        			if(localStorage.getItem("cart"+count) == null){
+	        				console.log("in");
+	        				var ob = {'no':$("input[name=hideenNo]").val(),'color':$(".setColor").eq(i).text(),'count':$(".setCount").eq(i).val(),'size':$(".setSize").eq(i).val(),'subject':$(".subject").eq(i).text(),'img':$('.keyImage').attr("src"),'allPrice':$('.allPrice').eq(i).text(),'price':$('#price').text()};
+	        				// no setColor setCount setSize
+	        				localStorage.setItem("cart"+count,JSON.stringify(ob));
+	        				console.log(JSON.parse(localStorage.getItem("cart"+count)));
+	        				break;
+	        			}
+	        			else{
+	        				count=count+1;
+	        				console.log("out");
+	        			}
+        			}
+        		}
+        		location.href="/cart";        		
         	})
         	$("#addBtn").on("click",function(){
         		var count = 0;
-        		while(true){
-        			if(getCookie("cart"+count) == null){
-        				setCookie("test","test",1);
-        				break;
-        			}
-        			else{
-        				count=count+1;
+        		if($(".buyBox").length == 0){
+        			alert('색상을 선택해주세요.');
+        			return false;
+        		}
+        		for(var i=0;i<$(".buyBox").length;i++){
+	        		while(true){
+	        			if(localStorage.getItem("cart"+count) == null){
+	        				console.log("in");
+	        				var ob = {'no':$("input[name=hideenNo]").val(),'color':$(".setColor").eq(i).text(),'count':$(".setCount").eq(i).val(),'size':$(".setSize").eq(i).val(),'subject':$(".subject").eq(i).text(),'img':$('.keyImage').attr("src"),'allPrice':$('.allPrice').eq(i).text(),'price':$('#price').text()};
+	        				// no setColor setCount setSize
+	        				localStorage.setItem("cart"+count,JSON.stringify(ob));
+	        				console.log(JSON.parse(localStorage.getItem("cart"+count)));
+	        				break;
+	        			}
+	        			else{
+	        				count=count+1;
+	        				console.log("out");
+	        			}
         			}
         		}
+				alert("장바구니에 추가완료");
         	})
         })
         
@@ -256,7 +305,7 @@
                 <li class="headerli">ONLINE SHOP</li>
                 <li class="headerli">ABOUT</li>
                 <li class="headerli">Board</li>
-                <li class="headerli">CHAT</li>
+                <!-- <li class="headerli" id="test">CHAT</li> -->
                 <c:if test="${sessionScope.sessionScope.id eq 'admin'}">
                 	<li class="headerli">ADMIN</li>
                 </c:if>                
@@ -284,6 +333,7 @@
     <!-- sessionScope (유저세션) 이 있으면 hidden으로 필요한 정보담기 -->
     <c:if test="${!empty sessionScope}">
     	<input type="hidden" name="userNo" value="${sessionScope.sessionScope.no}">
+    	<input type="hidden" name="userId" value="${sessionScope.sessionScope.id}">
     </c:if>
         <div id="sidebar" class="fl fl_col">
             <ul>
@@ -328,27 +378,27 @@
                         <div class="fl_gr9 fl fl_col" id="ratingBar">
                             <div class="reviewOfStar fl fl_row" >
                                 <span>5 Stars</span> 
-                                <div style="width: 80%; height: 15px;background-color: #c8c8c8;position: relative;left: 15px;top: 5px;"><div id="bar" style="background-color: #03bbff;width: 10%; height: 100%;"></div></div>
+                                <div style="width: 80%; height: 15px;background-color: #c8c8c8;position: relative;left: 15px;top: 5px;"><div id="bar" style="background-color: #03bbff;width: 0%; height: 100%;"></div></div>
                                 <span id="count" style="position: absolute;right: 5%;">(0)</span>
                             </div>
                             <div class="reviewOfStar fl fl_row">
                                 <span>4 Stars</span> 
-                                <div style="width: 80%; height: 15px;background-color: #c8c8c8;position: relative;left: 15px;top: 5px;"><div id="bar" style="background-color: #03bbff;width: 10%; height: 100%;"></div></div>
+                                <div style="width: 80%; height: 15px;background-color: #c8c8c8;position: relative;left: 15px;top: 5px;"><div id="bar" style="background-color: #03bbff;width: 0%; height: 100%;"></div></div>
                                 <span id="count" style="position: absolute;right: 5%;">(0)</span>
                             </div>
                             <div class="reviewOfStar fl fl_row">
                                 <span>3 Stars</span> 
-                                <div style="width: 80%; height: 15px;background-color: #c8c8c8;position: relative;left: 15px;top: 5px;"><div id="bar" style="background-color: #03bbff;width: 10%; height: 100%;"></div></div>
+                                <div style="width: 80%; height: 15px;background-color: #c8c8c8;position: relative;left: 15px;top: 5px;"><div id="bar" style="background-color: #03bbff;width: 0%; height: 100%;"></div></div>
                                 <span id="count" style="position: absolute;right: 5%;">(0)</span>
                             </div>
                             <div class="reviewOfStar fl fl_row">
                                 <span>2 Stars</span> 
-                                <div style="width: 80%; height: 15px;background-color: #c8c8c8;position: relative;left: 15px;top: 5px;"><div id="bar" style="background-color: #03bbff;width: 10%; height: 100%;"></div></div>
+                                <div style="width: 80%; height: 15px;background-color: #c8c8c8;position: relative;left: 15px;top: 5px;"><div id="bar" style="background-color: #03bbff;width: 0%; height: 100%;"></div></div>
                                 <span id="count" style="position: absolute;right: 5%;">(0)</span>
                             </div>
                             <div class="reviewOfStar fl fl_row">
                                 <span>1 Stars</span> 
-                                <div style="width: 80%; height: 15px;background-color: #c8c8c8;position: relative;left: 15px;top: 5px;"><div id="bar" style="background-color: #03bbff;width: 10%; height: 100%;"></div></div>
+                                <div style="width: 80%; height: 15px;background-color: #c8c8c8;position: relative;left: 15px;top: 5px;"><div id="bar" style="background-color: #03bbff;width: 0%; height: 100%;"></div></div>
                                 <span id="count" style="position: absolute;right: 5%;">(0)</span>
                             </div>
                         </div>
@@ -387,8 +437,9 @@
                 </div>
             </div>  
             <div class="infoarea fl fl_col ">
-                <div class="infoarea_f3 subject" >스트라이프 폴라넥T (화이트, 블랙)</div>
-                <div class="infoarea_f3 price">11,000원</div>
+                <div class="infoarea_f3 subject" ><!-- 스트라이프 폴라넥T (화이트, 블랙) -->
+                </div>
+                <div class="infoarea_f3 price" id="price"><!-- 11,000원 --></div>
                 <div class="infoarea_f1 colorbox" style="margin: 10px 0;"><a href="#" style="text-decoration: none;"><span class="colorCss">RED</span></a><a href="#" style="text-decoration: none;"><span class="colorCss" >BLUE</span></a></div>
                 <div class="infoarea_f1">[필수]색상을 선택해주세요</div>
                 <div class="fl fl_col buyList">
@@ -401,10 +452,10 @@
                 <div class="infoarea_f2">
                     <ul>
                         <li class="infoarea_f2 textBold">DETAILS</li>
-                        <li class="infoareaDetail details">경쾌하면서도 클래식한 매력을 지닌 자체 제작 스트라이프 폴라 넥 티셔츠입니다.<br>
+                        <li class="infoareaDetail details"><!-- 경쾌하면서도 클래식한 매력을 지닌 자체 제작 스트라이프 폴라 넥 티셔츠입니다.<br>
                             부드러운 코튼 소재를 사용하여 민감성 피부이신 분들께서도 자극 없이 착용하실 수 있으며,<br>
                             총 2가지 컬러로 관리가 용이한 블랙 컬러와, 피부 톤을 화사하게 밝혀주는 <br>
-                            화이트 모두 추천드리고 싶은 제품입니다<br>
+                            화이트 모두 추천드리고 싶은 제품입니다<br> -->
                         </li>
                     </ul>
                 </div>

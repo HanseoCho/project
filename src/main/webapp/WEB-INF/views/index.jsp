@@ -14,7 +14,6 @@
    .eventBox{
        width: calc(100%/3);
        padding: 10px;
-       border: 1px solid black;
    }
    .boxs:hover{
    		cursor: pointer;
@@ -58,7 +57,7 @@ $(function(){
                 <li class="headerli">ONLINE SHOP</li>
                 <li class="headerli">ABOUT</li>
                 <li class="headerli">Board</li>
-                <li class="headerli" id="test">CHAT</li>
+                <!-- <li class="headerli" id="test">CHAT</li> -->
                 <c:if test="${sessionScope.sessionScope.id eq 'admin'}">
                 	<li class="headerli">ADMIN</li>
                 </c:if>

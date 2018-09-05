@@ -11,10 +11,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		values (#{category},#{division},#{section},#{subject},#{price},#{color},#{details},#{size});
 	</insert>
 	<update id="deletePro" parameterType="com.java.project.vo.ProductVO" >
-		update `product` set delYn = 'Y' where `type` = #{type} and `value` = #{value};
+		update `product` set delYn = 'Y' where `no` = #{no};
 	</update>
 	<update id="deleteFile" parameterType="com.java.project.vo.ProductVO" >
-		update `file` set delYn = 'Y' where `productNo` = #{productNo};
+		update `file` set delYn = 'Y' where `productNo` = #{no};
 	</update>
 	<select id="selectNo" parameterType="com.java.project.vo.ProductVO" resultType="int">
 		select `no` from `product` where `subject` = #{subject} and `price` = #{price} limit 1; 
@@ -23,16 +23,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		insert into file (productNo,productType,fileName,fileUrl) values (#{productNo},#{productType},#{fileName},#{fileUrl});
 	</insert>
 	<select id="allListCount" resultType="HashMap">
-		select fileNo,count(*) as count from `file` where productType = 'viewImage' group by productNo order by fileNo desc;
+		select fileNo,count(*) as count from `file` where productType = 'viewImage' and delYn ='N' group by productNo order by fileNo desc;
 	</select>
 	<select id="countGet" parameterType="HashMap" resultType="int">
-		select count(*) from `product`;
+		select count(*) from `product` where delYn = 'N';
 	</select>
 	<select id="listGet" parameterType="HashMap" resultType="HashMap">
-		select * from `product` order by joinDate desc limit #{startPage}, #{endPage};
+		select * from `product` where delYn = 'N' order by joinDate desc limit #{startPage}, #{endPage};
 	</select>
 	<select id="fileGet" parameterType="HashMap" resultType="HashMap">
-		select * from `file` order by regDate desc;
+		select * from `file` where delYn = 'N' order by regDate desc;
 	</select>	
 	<select id="detailNo" parameterType="HashMap" resultType="HashMap">
 		select * from `product` where no = #{no};
@@ -41,9 +41,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from `file` where productNo = #{no};
 	</select>	
 	<select id="divisionCountGet" parameterType="HashMap" resultType="int">
-		select count(*) from `product` where division = #{division};
+		select count(*) from `product` where division = #{division} and delYn ='N';
 	</select>
 	<select id="divisionListGet" parameterType="HashMap" resultType="HashMap">
-		select * from `product` where division = #{division} order by joinDate desc limit #{startPage}, #{endPage};
+		select * from `product` where division = #{division} and delYn = 'N' order by joinDate desc limit #{startPage}, #{endPage};
 	</select>
 </mapper>

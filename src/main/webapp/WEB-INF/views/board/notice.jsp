@@ -143,7 +143,7 @@
     position: absolute;
     right: 0%;
 }
-.commentSubmit:hover{
+.commentSubmit:hover, .coDel:hover{
 	cursor: pointer;
 }
 </style>  
@@ -189,7 +189,12 @@ $(function(){
 					console.log(i);
 					var result = data.result[i];
 					var html = "";
-					html += '<div class="commentContainer"><div class="commentLine"><div class="fl fl_row commentView">'
+					console.log(result);
+					if(result.userNo == $("input[name=userNo]").val() | $("input[name=userId]").val() == "admin"){
+						html += '<div class="commentContainer" style="position:relative;"><span class="coDel" style="position: absolute;right: 0; top: 3px;">X<input type="hidden" value="'+result.no+'"></span><div class="commentLine"><div class="fl fl_row commentView">'
+					}else{
+						html += '<div class="commentContainer" style="position:relative;"><div class="commentLine"><div class="fl fl_row commentView">'
+					}
 					html += '<div class="fl fl_col fl_gr9 commentViewLeft" style="width: 100px;">';
 					html += '<div><div class="infoarea_f4 commentViewLeft_t" style="word-break:break-all; font-size: 0.9em;">';
 					html += '<span>'+result.content+'<br></span>';
@@ -210,6 +215,20 @@ $(function(){
 					console.log(html);
 					$("#commentLists").append(html);
 				}
+				$(".coDel").on("click",function(){
+					//alert($(this).children("input[type=hidden]").val())
+					$.ajax({method:"delete",url:"/comment/"+$(this).children("input[type=hidden]").val()})
+					.done(function(data,test,xhr){
+						if(xhr.status==200){
+							alert(data);
+							location.reload();
+						}
+						else{
+							console.log("이상발생")
+						}
+						
+					})
+				})
 /*     			for(var i=0;i<data.result.length;i++){
     				var result = data.result[i];
     				var html = '<div class="reviewContainer"><div class="reviewLine" style="position: relative;">'
@@ -334,7 +353,7 @@ $(function(){
                 <li class="headerli">ONLINE SHOP</li>
                 <li class="headerli">ABOUT</li>
                 <li class="headerli">Board</li>
-                <li class="headerli">CHAT</li>
+                <!-- <li class="headerli" id="test">CHAT</li> -->
                 <c:if test="${sessionScope.sessionScope.id eq 'admin'}">
                 	<li class="headerli">ADMIN</li>
                 </c:if>                
@@ -359,7 +378,6 @@ $(function(){
             <ul>
                 <li>NOTICE</li>
                 <li>Q&A</li>
-                <li>REVIEW</li>
             </ul>
         </div>  
         <div style="height:100%;" class="noticeBody">
@@ -420,23 +438,6 @@ $(function(){
            <div><img id="imgDown" src="/img/down.png" style="width: 30px;"></div>            
         </div>
     </div>    
-<!--     <footer style="height: 250px;" class="sbody">
-        <div style="text-align: center; height: 80px;">
-            <span class="footBar">HOME</span><span class="footBar">SHOP</span><span class="footBar">ABOUT</span><span class="footBar">BOARD</span>
-        </div>
-        <div style="text-align: center; height: 100px;">
-            <span style="font-size: 0.9em;font-weight: 600;">010-7726-7244</span><br>
-            <span style="font-size: 0.8em;">OPEN. AM 10:00 ~ PM 06:00 (mon-friday)</span><br>
-            <span style="font-size: 0.8em;">LUNCH. PM 12:00 ~ PM 01:00</span><br>
-            <span style="font-size: 0.8em;">BANKING. 기업은행 555-037102-01-000 (주)HanS:hop</span><br>     
-        </div>
-        <div style="text-align: center;">
-            <a href="https://facebook.com"><img src="/img/facebook.png" style="width: 50px;"></a>
-            <a href="https://www.instagram.com"><img src="/img/in.png" style="width: 50px;"></a>
-            <a href="https://twitter.com/"><img src="/img/tw.png" style="width: 50px;"></a>
-            <a href="https://www.kakaocorp.com/"><img src="/img/kakao.png" style="width: 50px;"></a>
-        </div>
-    </footer> -->
     
 </body>
 </html>

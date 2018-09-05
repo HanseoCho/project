@@ -91,10 +91,7 @@
 				location.href="/board";
 				break;
 			case "CHAT":
-				$.ajax({method:"get",url:"/mr/0/0"})
-				.done(function(data){
-					console.log(data);
-				})
+				window.open('/chat', 'testWindow', 'width=300, height=300', '_blank');
 				break;
 			case "ADMIN":
 				location.href="/admin";
@@ -246,6 +243,9 @@ function getCookie(cookie_name) {
 	      return unescape(y); // unescape로 디코딩 후 값 리턴
 	    }
 	  }
+}
+function delCookie(cookie_name) {
+	addCookie(cookie_name,"",0);
 }
 
 //쿼리스트링 얻기

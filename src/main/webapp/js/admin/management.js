@@ -88,6 +88,7 @@ $(function(){
 			else if(xhr.status == 202){
 				alert(data);
 			}
+			delCookie("sideBarUl");
 			seeColumn();
 		})
 	})
@@ -106,6 +107,7 @@ $(function(){
 			else if(xhr.status==202){
 				alert(data);
 			}
+			delCookie("sideBarUl")
 			seeColumn();
 		})
 	})

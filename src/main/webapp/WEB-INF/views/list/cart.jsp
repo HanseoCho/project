@@ -65,6 +65,11 @@
     .regBtn:hover{
     	cursor: pointer;
     }
+    .cartCancle:hover{
+    	cursor: pointer;
+    	background-color: black;
+    	color: white;
+    }
 </style>
 <script>
     $(function(){
@@ -86,35 +91,131 @@
         })
         $(".regBtn").on("click",function(){
         	alert("구입은 아직 구현하지못했습니다.")
-        })
+        });
+        
+        if($("#name").val() != null){
+        $("#rname").val($("#name").val());
+        $("#remail1").val($("#email").val().split("@")[0])
+        $("#remail2").val($("#email").val().split("@")[1])
+        $("#rphone").val($("#phone").val())
+        }
+        
+        $("input[name=adr]").on("click",function(){
+        	if($(this).val()==1){
+	        	$("#lname").val($('input[id]').val())
+	        	$("#lphone1").val($("#phone").val().split("-")[0])
+		        $("#lphone2").val($("#phone").val().split("-")[1])
+		        $("#lphone3").val($("#phone").val().split("-")[2])
+		        $("#sample2_postcode").val($("#address1").val())
+		        $("#sample2_address").val($("#address2").val())
+		        $("#closeAddress").val($("#address3").val())
+	       	}
+	       	else{
+	        	$("#lname").val("")
+	        	$("#lphone1").val("")
+		        $("#lphone2").val("")
+		        $("#lphone3").val("")
+		        $("#sample2_postcode").val("")
+		        $("#sample2_address").val("")
+		        $("#closeAddress").val("")
+	       	}
+       	})
+        var cnum = 1;
+       	$("#addCheck").on("click",function(){
+       		if(cnum ==1){
+		        $("#sample2_postcode").val($("#address1").val())
+		        $("#sample2_address").val($("#address2").val())
+		        $("#closeAddress").val($("#address3").val())
+		        cnum=0;
+       		}
+       		else{
+       			$("#sample2_postcode").val("");
+		        $("#sample2_address").val("");
+		        $("#closeAddress").val("");
+		        cnum=1;
+       		}
+       	})
+       	
+        makeCart();
     })
+    
+    function makeCart(){
+		var count = 0;
+		$(".test").empty();
+		if(localStorage.getItem("cart0") == null){
+			alert("장바구니가 비어있습니다!!");
+		}
+   		while(true){
+   			if(localStorage.getItem("cart"+count) != null){
+   				var ob = JSON.parse(localStorage.getItem("cart"+count));
+   				ob.subject = ob.subject.substring(0,ob.subject.length-2);
+   				var html = "";
+   				html += '<div class="fl fl_row" style="margin: 10px 0; height: 90px;"><div class="proSub" style=""><div class="" style="position: relative;left: 3%;">';
+   				html += '<img src="'+ob.img+'" style="width: 100px; height: 80px; position: relative;"><span style="position: absolute;right: 0%;" class="cartCancle">X<input type="hidden" value="'+"cart"+count+'"></span><span style="position: relative; left: 5px;">'+ob.subject+'<span style="position: absolute;left: 0;top: 17px; font-size: 0.8em;">옵션 '+ob.size+'</span></span>'
+   				html += '</div></div><div class="proNum"><div class="vc"><div class="vc_s">'+ob.count+'개</div></div></div>'
+   				html += '<div class="proPri"><div class="vc"><div class="vc_s" >'+ob.price+'</div></div></div>'
+   				html += '<div class="proAllPri"><div class="vc"><div class="vc_s">'+ob.allPrice+'</div></div></div></div>'   				
+   				$(".test").append(html);
+   				count=count+1;
+   			}
+   			else{
+   				break;
+   			}
+		}
+   		$(".cartCancle").off().on("click",function(){
+   			console.log($(this).children("input[type=hidden]").val());
+   			localStorage.removeItem($(this).children("input[type=hidden]").val())
+   			$(this).parent().parent().parent().remove();
+   		})
+    }
 </script>      
 </head>
 <body>
     <header class="header fl fl_row">
-        <div class="fl_gr2"><p id="mainBtn" class="fontBlock leftMt">HanS:hop</p></div>    
+    	
+        <div class="fl_gr2"><p id="mainBtn" class="fontBlock leftMt">HanS:hop</p></div>
         <div class="fl_gr5">
             <ul class="fontBlock centerMt">
                 <li class="headerli">ONLINE SHOP</li>
                 <li class="headerli">ABOUT</li>
                 <li class="headerli">Board</li>
-                <li class="headerli">CHAT</li>
+                <!-- <li class="headerli" id="test">CHAT</li> -->
+                <c:if test="${sessionScope.sessionScope.id eq 'admin'}">
+                	<li class="headerli">ADMIN</li>
+                </c:if>                  
             </ul>
         </div>        
         <div class="fl_gr2 headerRightBar fontBlock rightMt" >
-            <a>LOGIN</a>
-            <a>JOIN</a>
-            <a>MYPAGE</a>
-            <a>장바구니</a>
-        </div>        
+        	<c:choose>
+	        	<c:when test="${empty sessionScope}">
+		            <a>LOGIN</a>
+		            <a>JOIN</a>
+	            </c:when>
+	            <c:otherwise>
+	            	<a>LOGOUT</a>
+		            <a>MYPAGE</a>	            	
+	            </c:otherwise>
+           	</c:choose>             
+	            <a>장바구니</a>
+        </div> 
     </header>
+    <!-- 숨겨두는 값들 -->
+    <c:if test="${!empty sessionScope }">
+    		<input type="hidden" id="name" value="${sessionScope.sessionScope.name}">
+    		<input type="hidden" id="phone" value="${sessionScope.sessionScope.phone}">
+    		<input type="hidden" id="email" value="${sessionScope.sessionScope.email}">
+    		<input type="hidden" id="address1" value="${sessionScope.sessionScope.address1}">
+    		<input type="hidden" id="address2" value="${sessionScope.sessionScope.address2}">
+    		<input type="hidden" id="address3" value="${sessionScope.sessionScope.address3}">
+    		<input type="hidden" id="name" value="${sessionScope.sessionScope.name}">
+    </c:if>
     <div class="wrap" style=""> 
         <div id="sidebar" class="fl fl_col">
             <ul>
                 <li>인기상품</li>
             </ul>
         </div>  
-        <div class="sbody" >
+        <div class="sbody" style="margin-bottom: 100px;" >
             <div  style="top: 20px;">
                 <h3 style="display: inline-block;">ORDER / PAYMENT</h3>  <span class="gray" style="">주문/결제</span>
                 <hr>
@@ -122,7 +223,9 @@
                 <div class="fl fl_row">
                     <div class="proSub tc">상품정보</div><div class="proNum tc">수량</div><div class="proPri tc">상품 금액</div><div class="proAllPri tc">주문금액</div>
                 </div>
-                <div class="fl fl_row" style="margin: 10px 0; height: 90px;">
+                <div class="test">
+                </div>
+<!--                 <div class="fl fl_row" style="margin: 10px 0; height: 90px;">
                     <div class="proSub" style="">
                         <div class="" style="position: relative;left: 3%;">
                             <img src="img/test1.jpg" style="width: 100px; height: 80px;">
@@ -144,7 +247,7 @@
                             <div class="vc_s">20000원</div>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <hr>
                 <!--//배송지 https://store.musinsa.com/app/order/order_form -->
                 
@@ -163,7 +266,7 @@
                             </div>
                         </div>
                         <!--오른쪽-->
-                        <div style="width: 20%"><input type="text" name="name" value="이름"></div>
+                        <div style="width: 20%"><input type="text" id="rname" name="name" value="이름"></div>
                     </div>
                     <!--배송지-->
                     <div class="fl fl_row" style="margin: 10px 0px;">
@@ -171,13 +274,13 @@
                         <div style="width: 80%">
                             <div style="position: relative;left: 1%;" class="fl fl_row">
                                 <div style="width: 15%;">수령인/배송지명</div>
-                                <div><input type="text" style="width: 120px;"></div>
+                                <div><input type="text" id=lname style="width: 120px;"></div>
                             </div>
                         </div>
                         <!--오른쪽-->
                         <div style="width: 20%">
-                            <input type="text" name="name" value="이메일ID" style="width: 40%;">@
-                           <select id="test" style="width: 40%;">
+                            <input type="text" id="remail1" name="name" value="이메일ID" style="width: 40%;">@
+                           <select id="remail2" style="width: 40%;">
                                <option value="0">- 이메일 선택 -</option>
                                <option value="naver.com">naver.com</option>
                                <option value="daum.net">daum.net</option>
@@ -192,7 +295,7 @@
                         <div style="width: 80%">
                             <div style="position: relative;left: 1%;" class="fl fl_row">
                                 <div style="width: 15%;">휴대전화</div>
-                               <div class="fl_gr1" style="">
+                               <div class="fl_gr1" id="lphone1" style="">
                                    <select>
                                        <option>010</option>
                                        <option>070</option>
@@ -202,14 +305,14 @@
                                        <option>019</option>
                                    </select>
                                    -
-                                   <input type="text" style="width: 50px;" maxlength="4">
+                                   <input type="text" id="lphone2" style="width: 50px;" maxlength="4">
                                    -
-                                   <input type="text" style="width: 50px;" maxlength="4">
+                                   <input type="text" id="lphone3" style="width: 50px;" maxlength="4">
                                </div>
                             </div>
                         </div>
                         <!--오른쪽-->
-                        <div style="width: 20%"><input type="text" name="name" value="조한서"></div>
+                        <div style="width: 20%"><input type="text" id="rphone"></div>
                     </div>
                     <!--배송지-->
                     <div class="fl fl_row" style="margin: 10px 0px;">
@@ -222,7 +325,7 @@
                                         <input type="button" id="daum_search" value="우편번호" style="background-color: white; font-size: 0.9em;width: 90px; height: 25px;"><br>
                                         <input type="text" id="sample2_address" style="width: 30%; margin: 5px 0; "><span class="joinInfo"> 기본주소</span><br>
                                         <input type="text" id="closeAddress" style="width: 30%; margin: 0 0 5px 0;"><span class="joinInfo"> 나머지주소 
-                                            <input type="checkbox">기본배송지 등록</span>
+                                            <input type="checkbox" id="addCheck">기본배송지 등록</span>
                                         <!-- iOS에서는 position:fixed 버그가 있음, 적용하는 사이트에 맞게 position:absolute 등을 이용하여 top,left값 조정 필요 -->
                                         <div id="layer" style="display:none;position:fixed;overflow:hidden;z-index:1;-webkit-overflow-scrolling:touch;">
                                         <img src="//t1.daumcdn.net/localimg/localimages/07/postcode/320/close.png" id="btnCloseLayer" style="cursor:pointer;position:absolute;right:-3px;top:-3px;z-index:1"  alt="닫기 버튼">
@@ -340,5 +443,22 @@
             </div>
         </div>
     </div>
+   <footer style="height: 250px;" class="sbody_">
+        <div style="text-align: center; height: 80px;">
+            <span class="footBar">HOME</span><span class="footBar">SHOP</span><span class="footBar">ABOUT</span><span class="footBar">BOARD</span>
+        </div>
+        <div style="text-align: center; height: 100px;">
+            <span style="font-size: 0.9em;font-weight: 600;">010-7726-7244</span><br>
+            <span style="font-size: 0.8em;">OPEN. AM 10:00 ~ PM 06:00 (mon-friday)</span><br>
+            <span style="font-size: 0.8em;">LUNCH. PM 12:00 ~ PM 01:00</span><br>
+            <span style="font-size: 0.8em;">BANKING. 기업은행 555-037102-01-000 (주)HanS:hop</span><br>     
+        </div>
+        <div style="text-align: center;">
+            <a href="https://facebook.com"><img src="/img/facebook.png" style="width: 50px;"></a>
+            <a href="https://www.instagram.com"><img src="/img/in.png" style="width: 50px;"></a>
+            <a href="https://twitter.com/"><img src="/img/tw.png" style="width: 50px;"></a>
+            <a href="https://www.kakaocorp.com/"><img src="/img/kakao.png" style="width: 50px;"></a>
+        </div>
+    </footer>  
 </body>
 </html>

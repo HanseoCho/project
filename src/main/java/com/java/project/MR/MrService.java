@@ -45,6 +45,7 @@ public class MrService implements MrServiceInterface {
 	Configuration conf;
 	@Inject
 	DaoInterface di;
+	/*
 	public ResponseEntity<HashMap<String, Object>> saveData(String inDate,String inTime) throws Throwable{
 		Map<String,Object> param = MapUtil.makeParam("selectList", "productviews.allList");
 		Job job = Job.getInstance(conf,"test");
@@ -52,7 +53,7 @@ public class MrService implements MrServiceInterface {
 		FSDataOutputStream fsos = file.create(new Path("/insert/"+inDate+"/"+inTime+"/data.csv")); // 출력 객체 생성
 		List<HashMap<String, Object>> list = (List<HashMap<String, Object>>) di.call(param);
 		String result = "";
-		
+		List<String> textList = new ArrayList<String>();
 		//System.out.println( String.format("키 : %s, 값 : %s", key, map.get(key)) ); 참고 : http://stove99.tistory.com/96 
 		for(int i=0;i<list.size();i++) {
 			for(String key :list.get(i).keySet()) {
@@ -66,16 +67,67 @@ public class MrService implements MrServiceInterface {
 				result += ",";
 			}
 			result = result.substring(0, result.length()-1);
-			System.out.println(result);
+			System.out.println(result.length());
 			result+="\n";
+			
+			if(result.length()>20000) {
+				textList.add(result);
+				result = "";
+			}
 		}
+		for(int j=0;j<textList.size();j++) {
+			System.out.println(textList.get(j).length());
+			fsos.writeUTF(textList.get(j));						 // 내용작성
+		}
+		System.out.println(textList.size());
 		fsos.writeUTF(result);						 // 내용작성
+		
 		fsos.close();								 // 출력 객체 종료
 		file.close();
 		System.out.println("끝");
 		return null;
 	}
-	
+	*/
+
+	public ResponseEntity<HashMap<String, Object>> saveData(String inDate,String inTime) throws Throwable{
+		Map<String,Object> param = MapUtil.makeParam("selectList", "productviews.allList");
+		List<HashMap<String, Object>> list = (List<HashMap<String, Object>>) di.call(param);
+		for(int i=0;i<list.size()/600;i++) {
+			List<HashMap<String, Object>> list2 = new ArrayList<HashMap<String, Object>>();
+			for(int j=(i*600);j<((6*(i+1))*100);j++) {
+				list2.add(list.get(j));
+			}
+			Job job = Job.getInstance(conf,"test");
+			FileSystem file = FileSystem.get(conf);
+			FSDataOutputStream fsos = file.create(new Path("/insert/"+inDate+"/"+inTime+"/data"+i+".csv")); // 출력 객체 생성
+			String result = "";
+			List<String> textList = new ArrayList<String>();
+			//System.out.println( String.format("키 : %s, 값 : %s", key, map.get(key)) ); 참고 : http://stove99.tistory.com/96 
+			for(int k=0;k<list2.size();k++) {
+				for(String key :list2.get(k).keySet()) {
+					if(key.equals("date")) {
+						SimpleDateFormat d = new SimpleDateFormat("yyyy/MM");
+						result += d.format(list2.get(k).get(key));
+					}
+					else {
+						result += String.format("%s", list2.get(k).get(key)).replace(",", "/");
+					}
+					result += ",";
+				}
+				result = result.substring(0, result.length()-1);
+				System.out.println(result.length());
+				result+="\n";
+			}
+			System.out.println(textList.size());
+			fsos.writeUTF(result);						 // 내용작성
+			
+			fsos.close();								 // 출력 객체 종료
+			file.close();
+		}
+		System.out.println("끝");
+		return null;
+	}
+		
 	static int count = 0;
 	@Override
 	public ResponseEntity<HashMap<String, Object>> reader(String inDate, String inTime) throws Throwable {
@@ -95,6 +147,7 @@ public class MrService implements MrServiceInterface {
 			job.setOutputKeyClass(Text.class);
 			job.setOutputValueClass(IntWritable.class);
 			URI inputUri = URI.create("/insert/"+inDate+"/"+inTime);
+			//URI inputUri = URI.create("/insert/data2.csv");
 			URI outputUri = URI.create("/result/"+inDate+"/"+inTime+"_"+count);
 			FileInputFormat.addInputPath(job, new Path(inputUri)); //hadoop stroage file 읽어오는 경로&파일
 			FileOutputFormat.setOutputPath(job, new Path(outputUri)); //hadoop stroage 저장할 경로
