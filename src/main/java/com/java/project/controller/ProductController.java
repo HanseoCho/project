@@ -1,4 +1,4 @@
-package com.java.project.product;
+package com.java.project.controller;
 
 import java.util.HashMap;
 import java.util.List;
@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.java.project.Interface.ProductSericeInterface;
 import com.java.project.Util.Criteria;
 import com.java.project.vo.ColumnVO;
 import com.java.project.vo.ProductVO;

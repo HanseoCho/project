@@ -1,4 +1,4 @@
-package com.java.project.file;
+package com.java.project.controller;
 
 import java.util.HashMap;
 import java.util.List;
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.java.project.Interface.FileServiceInterface;
 import com.java.project.vo.ProductVO;
 
 @RestController

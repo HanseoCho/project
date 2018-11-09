@@ -1,4 +1,4 @@
-package com.java.project.user;
+package com.java.project.Interface;
 
 import java.util.HashMap;
 import java.util.List;

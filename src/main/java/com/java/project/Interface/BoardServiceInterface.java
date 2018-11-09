@@ -1,4 +1,4 @@
-package com.java.project.board;
+package com.java.project.Interface;
 
 import java.util.HashMap;
 

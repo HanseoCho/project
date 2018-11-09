@@ -1,4 +1,4 @@
-package com.java.project.file;
+package com.java.project.service;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.java.project.DAO.DaoInterface;
+import com.java.project.Interface.FileServiceInterface;
 import com.java.project.Util.HttpUtil;
 import com.java.project.Util.MapUtil;
 import com.java.project.vo.ProductVO;

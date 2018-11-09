@@ -13,9 +13,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.java.project.HomeController;
 import com.java.project.DAO.DaoInterface;
 import com.java.project.Util.MapUtil;
+import com.java.project.controller.HomeController;
 import com.java.project.vo.UserVO;
 
 public class StatusCheckInterceptor extends HandlerInterceptorAdapter {

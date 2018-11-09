@@ -1,4 +1,4 @@
-package com.java.project.user;
+package com.java.project.service;
 
 import java.io.Console;
 import java.text.SimpleDateFormat;
@@ -23,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.java.project.DAO.DaoInterface;
+import com.java.project.Interface.UserServiceInterface;
 import com.java.project.Util.MapUtil;
 import com.java.project.mail.MailHandler;
 import com.java.project.mail.TempKey;

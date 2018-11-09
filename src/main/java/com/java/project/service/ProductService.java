@@ -1,4 +1,4 @@
-package com.java.project.product;
+package com.java.project.service;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.java.project.DAO.DaoInterface;
+import com.java.project.Interface.ProductSericeInterface;
 import com.java.project.Util.Criteria;
 import com.java.project.Util.HttpUtil;
 import com.java.project.Util.MapUtil;

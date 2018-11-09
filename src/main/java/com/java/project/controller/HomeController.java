@@ -1,4 +1,4 @@
-package com.java.project;
+package com.java.project.controller;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.java.project.Interface.UserServiceInterface;
 import com.java.project.Util.Criteria;
-import com.java.project.user.UserServiceInterface;
 import com.java.project.vo.UserVO;
 
 /**

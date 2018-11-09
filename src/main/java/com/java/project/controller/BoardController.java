@@ -1,4 +1,4 @@
-package com.java.project.board;
+package com.java.project.controller;
 
 import java.util.HashMap;
 
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.java.project.Interface.BoardServiceInterface;
 import com.java.project.Util.Criteria;
 import com.java.project.vo.BoardVO;
 import com.java.project.vo.CommentVO;
@@ -27,6 +28,7 @@ public class BoardController {
 	public ModelAndView moveboard(){
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("/board/board");
+		int a =1;
 		return mv;
 	}
 	@RequestMapping(value="/about",method=RequestMethod.GET)	

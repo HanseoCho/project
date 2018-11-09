@@ -1,4 +1,4 @@
-package com.java.project.board;
+package com.java.project.service;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.java.project.DAO.DaoInterface;
+import com.java.project.Interface.BoardServiceInterface;
 import com.java.project.Util.Criteria;
 import com.java.project.Util.MapUtil;
 import com.java.project.vo.BoardVO;
